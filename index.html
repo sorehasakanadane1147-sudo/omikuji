@@ -2,64 +2,89 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+
+  <!-- スマホ全画面用（超重要） -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>割り箸おみくじ</title>
+
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      background: black;
-      color: white;
-      height: 100%;
-      overflow: hidden;
-      font-family: sans-serif;
-    }
-    video {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-    }
-    #result {
-      position: absolute;
-      bottom: 10%;
-      width: 100%;
+      padding: 20px;
       text-align: center;
-      font-size: 1.5rem;
-      background: rgba(0,0,0,0.6);
-      padding: 1em;
+      font-family: sans-serif;
+      background: #fafafa;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    video {
+      width: 100%;
+      max-width: 360px;
+      margin-top: 20px;
       display: none;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 14px 24px;
+      margin-top: 25px;
+      border: none;
+      border-radius: 8px;
+      background: #333;
+      color: #fff;
+    }
+
+    #result {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 15px;
     }
   </style>
 </head>
+
 <body>
 
-<video id="video" autoplay playsinline>
-  <source src="video/daikichi.mp4" type="video/mp4">
-</video>
+  <h1>割り箸おみくじ</h1>
+  <p>画面をタップして今日の運勢を</p>
 
-<div id="result"></div>
+  <button onclick="draw()">おみくじを引く</button>
 
-<script>
-const fortunes = [
-  {file: "daikichi.mp4", text: "大吉　いい割り箸ライフを！"},
-  {file: "chukichi.mp4", text: "中吉　割り箸もあなたを見てる"},
-  {file: "kichi.mp4", text: "吉　あなたこそ割り箸だ！"},
-  {file: "shokichi.mp4", text: "小吉　割り切れないことがあった時は割りばし"},
-  {file: "suekichi.mp4", text: "末吉　割り箸に守ってもらおう！"},
-  {file: "kyo.mp4", text: "凶　大丈夫！あなたには割り箸がついている"}
-];
+  <video id="video" playsinline></video>
 
-const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-const video = document.getElementById("video");
-const result = document.getElementById("result");
+  <p id="result"></p>
 
-video.src = "video/" + fortune.file;
+  <script>
+    const omikuji = [
+      { video: "video/daikichi.mp4", text: "大吉　いい割り箸ライフを！" },
+      { video: "video/chukichi.mp4", text: "中吉　割り箸もあなたを見てる" },
+      { video: "video/kichi.mp4", text: "吉　あなたこそ割り箸だ！" },
+      { video: "video/shokichi.mp4", text: "小吉　割り切れないことがあった時は割り箸を割ろう！" },
+      { video: "video/suekichi.mp4", text: "末吉　割り箸に守ってもらおう！" },
+      { video: "video/kyo.mp4", text: "凶　大丈夫！あなたには割り箸がついている" }
+    ];
 
-video.onended = () => {
-  result.textContent = fortune.text;
-  result.style.display = "block";
-};
-</script>
+    function draw() {
+      const video = document.getElementById("video");
+      const result = document.getElementById("result");
+
+      const rand = Math.floor(Math.random() * omikuji.length);
+
+      video.style.display = "block";
+      video.src = omikuji[rand].video;
+      result.textContent = omikuji[rand].text;
+
+      video.play();
+    }
+  </script>
 
 </body>
 </html>
+
