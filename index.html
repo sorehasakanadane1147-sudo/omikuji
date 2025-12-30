@@ -2,12 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-
-  <!-- スマホ全画面用（超重要） -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>割り箸おみくじ</title>
-
   <style>
     body {
       margin: 0;
@@ -16,22 +12,14 @@
       font-family: sans-serif;
       background: #fafafa;
     }
-
-    h1 {
-      font-size: 24px;
-    }
-
-    p {
-      font-size: 16px;
-    }
-
+    h1 { font-size: 24px; }
+    p { font-size: 16px; }
     video {
       width: 100%;
       max-width: 360px;
       margin-top: 20px;
       display: none;
     }
-
     button {
       font-size: 18px;
       padding: 14px 24px;
@@ -40,8 +28,9 @@
       border-radius: 8px;
       background: #333;
       color: #fff;
+      cursor: pointer;
     }
-
+    button:hover { background: #555; }
     #result {
       font-size: 20px;
       font-weight: bold;
@@ -49,7 +38,6 @@
     }
   </style>
 </head>
-
 <body>
 
   <h1>割り箸おみくじ</h1>
@@ -78,7 +66,7 @@
       const rand = Math.floor(Math.random() * omikuji.length);
 
       video.style.display = "block";
-      video.src = omikuji[rand].video;
+      video.src = omikuji[rand].video + "?v=" + new Date().getTime(); // キャッシュ回避
       result.textContent = omikuji[rand].text;
 
       video.play();
@@ -87,4 +75,3 @@
 
 </body>
 </html>
-
